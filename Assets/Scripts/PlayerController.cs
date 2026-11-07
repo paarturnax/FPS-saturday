@@ -44,5 +44,13 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = transform.right * horizontal + transform.forward * vertical;
         movement = Vector3.ClampMagnitude(movement, 1f) * moveSpeed;
 
+        if (characterController.isGrounded && verticalVelocity < 0f)
+        {
+            verticalVelocity = -2f;
+        }
+        verticalVelocity += gravity * Time.deltaTime;
+        movement.y = verticalVelocity;
+
+        characterController.Move(movement * Time.deltaTime);
     }
 }
